@@ -26,7 +26,7 @@ class AuthService {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak';
       } else if (e.code == 'email-already-in-use') {
-        return 'The account already exists for that email';
+        return 'The account with that email already exists';
       }
       return "Something went wrong";
     } catch (error) {
@@ -54,14 +54,15 @@ class AuthService {
       return "Something went wrong";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        return 'No user found with that email';
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        return 'Wrong password';
       }
       return 'Something went wrong';
     } catch (error) {
       print(error.toString());
-      return 'Something went wrong';
+      // return 'Something went wrong';
+      return error.toString();
     }
   }
 }
