@@ -33,6 +33,10 @@ class _AuthScreenState extends State<AuthScreen> {
     print("Login with google");
   }
 
+  void _loginWithFacebook() {
+    print("Login with Facebook");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,7 +148,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                   SignInButton(
                     Buttons.Facebook,
-                    onPressed: () => _loginWithGoogle(),
+                    onPressed: () => _loginWithFacebook(),
                   ),
                   const SizedBox(
                     height: 24,
