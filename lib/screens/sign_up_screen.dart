@@ -50,8 +50,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void _signUpwithGoogle() {
-    print("Sign up with Google");
+  Future<void> _signUpwithGoogle() async {
+    response = await _authService.signInWithGoogle();
+    var _snackBar = SnackBar(
+      content: Text(response ?? 'Something went wrong'),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+    if (FirebaseAuth.instance.currentUser != null) {
+      Navigator.pop(context);
+    }
   }
 
   void _signUpWithFacebook() {

@@ -14,7 +14,7 @@ class _TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FloatingActionButton(
-        onPressed: () => _authService.signOut(),
+        onPressed: () => _authService.signOut(this.context),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [

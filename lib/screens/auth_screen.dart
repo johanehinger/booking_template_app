@@ -43,8 +43,12 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  void _loginWithGoogle() {
-    print("Login with google");
+  Future<void> _loginWithGoogle() async {
+    response = await _authService.signInWithGoogle();
+    var _snackBar = SnackBar(
+      content: Text(response ?? 'Something went wrong'),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
   }
 
   void _loginWithFacebook() {
