@@ -68,14 +68,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Sign up"),
-        ),
-        body: LayoutBuilder(
-          builder: (context, constraint) {
-            return SingleChildScrollView(
+      appBar: AppBar(
+        title: const Text("Sign up"),
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraint) {
+          return SingleChildScrollView(
+            child: Center(
               child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                constraints: BoxConstraints(
+                    minHeight: constraint.maxHeight, maxWidth: 500),
+                // TODO: IntrinsicHeight is expensive, optimize this later.
                 child: IntrinsicHeight(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -337,8 +340,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
   }
 }

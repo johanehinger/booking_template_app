@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:social_influencer_template_app/design/theme_colors.dart';
-import 'package:social_influencer_template_app/screens/auth_screen.dart';
+import 'package:booking_template_app/design/theme_colors.dart';
+import 'package:booking_template_app/screens/auth_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:social_influencer_template_app/screens/tab_screen.dart';
+import 'package:booking_template_app/screens/tab_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

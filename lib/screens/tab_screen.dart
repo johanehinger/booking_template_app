@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_influencer_template_app/services/auth_service.dart';
+import 'package:booking_template_app/services/auth_service.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({Key? key}) : super(key: key);

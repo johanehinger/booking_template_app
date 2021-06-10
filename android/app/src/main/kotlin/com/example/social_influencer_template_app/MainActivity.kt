@@ -1,4 +1,4 @@
-package com.example.social_influencer_template_app
+package com.example.booking_template_app
 
 import io.flutter.embedding.android.FlutterActivity
 
