@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:booking_template_app/design/theme_colors.dart';
-import 'package:booking_template_app/screens/auth_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:booking_template_app/screens/tab_screen.dart';
+
+import '../design/app_theme.dart';
+import './screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +12,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final AppTheme _appTheme = new AppTheme();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -21,23 +20,26 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: ThemeColors.primary,
-        ),
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, userSnapshot) {
-            if (userSnapshot.connectionState == ConnectionState.waiting) {
-              return Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            }
-            var signedIn = userSnapshot.hasData;
-            return signedIn ? TabScreen() : AuthScreen();
-          },
-        ));
+      title: 'Flutter Demo',
+      theme: _appTheme.themeData,
+      home: HomeScreen(),
+      // __________________
+      // TabScreen(),
+      //___________________
+      // StreamBuilder(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (context, userSnapshot) {
+      //     if (userSnapshot.connectionState == ConnectionState.waiting) {
+      //       return Scaffold(
+      //         body: Center(
+      //           child: CircularProgressIndicator(),
+      //         ),
+      //       );
+      //     }
+      //     var signedIn = userSnapshot.hasData;
+      //     return signedIn ? TabScreen() : AuthScreen();
+      //   },
+      // ),
+    );
   }
 }

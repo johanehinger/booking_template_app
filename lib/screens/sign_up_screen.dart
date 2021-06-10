@@ -1,3 +1,4 @@
+import 'package:booking_template_app/design/theme_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
@@ -26,10 +27,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(1930, 1),
-        lastDate: DateTime(2101));
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1930, 1),
+      lastDate: DateTime(2101),
+    );
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
@@ -109,11 +111,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   decoration: InputDecoration(
                                     labelText: "First name",
                                     prefixIcon: Icon(Icons.perm_identity),
-                                    border: const OutlineInputBorder(
-                                      borderRadius: const BorderRadius.all(
-                                        const Radius.circular(12.0),
-                                      ),
-                                    ),
                                   ),
                                 ),
                               ),
@@ -133,11 +130,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   decoration: InputDecoration(
                                     labelText: "Last name",
                                     prefixIcon: Icon(Icons.perm_identity),
-                                    border: const OutlineInputBorder(
-                                      borderRadius: const BorderRadius.all(
-                                        const Radius.circular(12.0),
-                                      ),
-                                    ),
                                   ),
                                 ),
                               ),
@@ -149,9 +141,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 child: Container(
                                   width: double.infinity,
-                                  height: 65.0,
+                                  height: 60.0,
                                   child: TextButton(
-                                    onPressed: () => _selectDate(context),
+                                    onPressed: () => {_selectDate(context)},
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
@@ -273,15 +265,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 width: 200.0,
                                 height: 50.0,
                                 child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                    ),
-                                  ),
                                   onPressed: () =>
                                       _signUpWithEmailAndPassword(),
                                   child: const Text('Sign up'),
@@ -302,21 +285,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Row(
                               children: [
                                 const Expanded(
-                                  child: const Divider(
-                                    indent: 12.0,
-                                    endIndent: 12.0,
-                                  ),
+                                  child: const Divider(),
                                 ),
-                                Text(
-                                  "Or sign up with",
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
-                                ),
+                                Text("Or sign up with"),
                                 const Expanded(
-                                  child: const Divider(
-                                    indent: 12.0,
-                                    endIndent: 12.0,
-                                  ),
+                                  child: const Divider(),
                                 ),
                               ],
                             ),

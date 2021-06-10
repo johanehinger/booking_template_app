@@ -59,6 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: LayoutBuilder(
         builder: (context, constraint) {
           return SingleChildScrollView(
@@ -114,12 +115,6 @@ class _AuthScreenState extends State<AuthScreen> {
                                         decoration: InputDecoration(
                                           labelText: "Email",
                                           prefixIcon: Icon(Icons.email),
-                                          border: const OutlineInputBorder(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              const Radius.circular(12.0),
-                                            ),
-                                          ),
                                         ),
                                       ),
                                     ),
@@ -143,12 +138,6 @@ class _AuthScreenState extends State<AuthScreen> {
                                         decoration: InputDecoration(
                                           labelText: "Password",
                                           prefixIcon: Icon(Icons.lock),
-                                          border: const OutlineInputBorder(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              const Radius.circular(12.0),
-                                            ),
-                                          ),
                                         ),
                                       ),
                                     ),
@@ -156,21 +145,13 @@ class _AuthScreenState extends State<AuthScreen> {
                                 ),
                               ),
                               TextButton(
-                                  onPressed: _forgotPassword,
-                                  child: const Text('Forgot password?')),
+                                onPressed: _forgotPassword,
+                                child: const Text('Forgot password?'),
+                              ),
                               Container(
                                 width: 200.0,
                                 height: 50.0,
                                 child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                    ),
-                                  ),
                                   onPressed: _login,
                                   child: const Text('Login'),
                                 ),
@@ -181,8 +162,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                 children: [
                                   const Text("Have no account?"),
                                   TextButton(
-                                      onPressed: _signUp,
-                                      child: const Text('Sign up!')),
+                                    onPressed: _signUp,
+                                    child: const Text('Sign up!'),
+                                  ),
                                 ],
                               ),
                               const SizedBox(
@@ -198,22 +180,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             children: [
                               Row(
                                 children: [
+                                  const Expanded(child: const Divider()),
+                                  Text("Sign in with"),
                                   const Expanded(
-                                    child: const Divider(
-                                      indent: 12.0,
-                                      endIndent: 12.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Sign in with",
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  const Expanded(
-                                    child: const Divider(
-                                      indent: 12.0,
-                                      endIndent: 12.0,
-                                    ),
+                                    child: const Divider(),
                                   ),
                                 ],
                               ),
