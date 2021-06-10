@@ -11,6 +11,7 @@
 
 # Private enviroment
 /android/app/google-services.json
+/web/firebase_config.js
 
 # IntelliJ related
 *.iml
