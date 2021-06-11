@@ -43,7 +43,9 @@ class AppTheme {
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(primary: ThemeColors.buttonColor),
+        style: TextButton.styleFrom(
+          primary: ThemeColors.buttonColor,
+        ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: ThemeColors.secondaryColor,

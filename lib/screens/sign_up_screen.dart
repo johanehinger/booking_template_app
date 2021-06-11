@@ -1,4 +1,3 @@
-import 'package:booking_template_app/design/theme_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
@@ -16,7 +15,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   String? firstName;
   String? lastName;
-  DateTime selectedDate = DateTime.now();
+  String? socialSecurityNumber;
   String? email;
   String? password;
   String? repeatPassword;
@@ -25,23 +24,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final AuthService _authService = AuthService();
 
   final _formKey = GlobalKey<FormState>();
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(1930, 1),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
 
   Future<void> _signUpWithEmailAndPassword() async {
     if (_formKey.currentState!.validate()) {
       response = await _authService.registerWithEmailAndPassword(
-          email: email, password: password);
+        email: email!,
+        password: password!,
+        firstName: firstName!,
+        lastName: lastName!,
+        socialSecurityNumber: socialSecurityNumber!,
+      );
       var _snackBar = SnackBar(
         content: Text(response ?? 'Something went wrong'),
       );
@@ -139,44 +131,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   left: 12.0,
                                   right: 12.0,
                                 ),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 60.0,
-                                  child: TextButton(
-                                    onPressed: () => {_selectDate(context)},
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          side: const BorderSide(
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const SizedBox(
-                                          width: 6,
-                                        ),
-                                        Icon(
-                                          Icons.date_range,
-                                          color: Colors.grey[600],
-                                        ),
-                                        const SizedBox(
-                                          width: 12,
-                                        ),
-                                        Text(
-                                          "Birthdate: " +
-                                              "${selectedDate.toLocal()}"
-                                                  .split(' ')[0],
-                                          style: TextStyle(
-                                            color: Colors.grey[600],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                child: TextFormField(
+                                  validator: (val) => val!.isEmpty
+                                      ? "Enter a social security number"
+                                      : null,
+                                  obscureText: false,
+                                  onChanged: (val) {
+                                    setState(
+                                        () => {socialSecurityNumber = val});
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: "social security number",
+                                    prefixIcon: Icon(Icons.perm_identity),
                                   ),
                                 ),
                               ),

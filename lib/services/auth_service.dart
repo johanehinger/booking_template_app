@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
@@ -31,21 +32,31 @@ class AuthService {
   /// registerWithEmailAndPassword
   ///   Will return either the newly created user as a "User" object or null
   Future<String> registerWithEmailAndPassword({
-    String? email,
-    String? password,
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+    required String socialSecurityNumber,
   }) async {
     try {
-      if (email != null && password != null) {
-        UserCredential userCredential = await _auth
-            .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
-        User? user = userCredential.user;
-        if (user != null) {
-          return 'User created successfully';
-        }
-      } else {
-        throw Error();
+      User? user = userCredential.user;
+      if (user != null) {
+        FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+          {
+            'email': email,
+            'firstName': firstName,
+            'lastName': lastName,
+            'socialSecurityNumber': socialSecurityNumber,
+            'role': 'customer',
+          },
+          SetOptions(merge: true),
+        );
+        return 'User created successfully';
       }
+
       return "Something went wrong";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

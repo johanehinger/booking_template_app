@@ -1,8 +1,7 @@
-import 'package:booking_template_app/screens/profile_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import './auth_screen.dart';
+import './profile_screen.dart';
+import '../widgets/content_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,8 +13,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
   static final List<Widget> _tabs = <Widget>[
     //! Modifying this list requires you to update index variables.
+    Scaffold(),
     Scaffold(),
     ProfileScreen(),
   ];
@@ -28,36 +30,32 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  /// Toggles the drawer.
+  void _toggleDrawer() {
+    if (_key.currentState!.isDrawerOpen) {
+      Navigator.pop(context);
+    } else {
+      _key.currentState!.openDrawer();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: _tabs.elementAt(_selectedIndex),
-      drawer: Drawer(
-        child: Center(
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () => _onItemTapped(0),
-                child: Row(
-                  children: [
-                    Icon(Icons.home_filled),
-                    const Text("Home"),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => _onItemTapped(1),
-                child: Row(
-                  children: [
-                    Icon(Icons.account_box),
-                    const Text("Account"),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      primary: true,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => _toggleDrawer(),
+          icon: Icon(Icons.menu),
         ),
+        automaticallyImplyLeading: false,
+      ),
+      body: Scaffold(
+        key: _key,
+        drawer: ContentDrawer(
+          onItemTapped: _onItemTapped,
+        ),
+        body: _tabs.elementAt(_selectedIndex),
       ),
     );
   }
