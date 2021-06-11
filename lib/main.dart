@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../design/app_theme.dart';
-import './screens/home_screen.dart';
+import './screens/navigation_screen.dart';
 
 /// Requires that a Firestore emulator is running locally.
 /// See https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: _appTheme.themeData,
-      home: HomeScreen(),
+      home: NavigationScreen(),
       // __________________
       // TabScreen(),
       //___________________

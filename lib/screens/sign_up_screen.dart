@@ -62,9 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sign up"),
-      ),
+      appBar: AppBar(),
       body: LayoutBuilder(
         builder: (context, constraint) {
           return SingleChildScrollView(
@@ -98,7 +96,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       : null,
                                   obscureText: false,
                                   onChanged: (val) {
-                                    setState(() => {firstName = val});
+                                    setState(
+                                      () => {firstName = val},
+                                    );
                                   },
                                   decoration: InputDecoration(
                                     labelText: "First name",
@@ -117,7 +117,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       val!.isEmpty ? "Enter a last name" : null,
                                   obscureText: false,
                                   onChanged: (val) {
-                                    setState(() => {lastName = val});
+                                    setState(
+                                      () => {lastName = val},
+                                    );
                                   },
                                   decoration: InputDecoration(
                                     labelText: "Last name",
@@ -138,7 +140,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   obscureText: false,
                                   onChanged: (val) {
                                     setState(
-                                        () => {socialSecurityNumber = val});
+                                      () => {socialSecurityNumber = val},
+                                    );
                                   },
                                   decoration: InputDecoration(
                                     labelText: "social security number",
@@ -183,7 +186,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                   obscureText: true,
                                   onChanged: (val) {
-                                    setState(() => {password = val});
+                                    setState(
+                                      () => {password = val},
+                                    );
                                   },
                                   decoration: InputDecoration(
                                     labelText: "Password",
@@ -211,7 +216,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                   obscureText: true,
                                   onChanged: (val) {
-                                    setState(() => {repeatPassword = val});
+                                    setState(
+                                      () => {repeatPassword = val},
+                                    );
                                   },
                                   decoration: InputDecoration(
                                     labelText: "Repeat password",
@@ -253,7 +260,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 const Expanded(
                                   child: const Divider(),
                                 ),
-                                Text("Or sign up with"),
+                                Text("Sign up with"),
                                 const Expanded(
                                   child: const Divider(),
                                 ),

@@ -71,12 +71,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: IntrinsicHeight(
                   child: Container(
                     height: double.infinity,
-                    // decoration: BoxDecoration(
-                    //   image: const DecorationImage(
-                    //     image: const AssetImage('assets/auth_background.jpg'),
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    // ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -86,13 +80,6 @@ class _AuthScreenState extends State<AuthScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                "App title here",
-                                style: const TextStyle(
-                                  fontSize: 32.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
                               const SizedBox(
                                 height: 24,
                               ),

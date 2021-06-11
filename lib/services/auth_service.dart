@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -7,13 +9,32 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  static Map<String, dynamic>? _parseJwt(String? token) {
+    // validate token
+    if (token == null) return null;
+    final List<String> parts = token.split('.');
+    if (parts.length != 3) {
+      return null;
+    }
+    // retrieve token payload
+    final String payload = parts[1];
+    final String normalized = base64Url.normalize(payload);
+    final String resp = utf8.decode(base64Url.decode(normalized));
+    // convert to Map
+    final payloadMap = json.decode(resp);
+    if (payloadMap is! Map<String, dynamic>) {
+      return null;
+    }
+    return payloadMap;
+  }
+
   Future<String> signInWithGoogle() async {
     GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
           await googleUser!.authentication;
-
+      print(googleAuth);
       final credential = auth.GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -21,7 +42,18 @@ class AuthService {
 
       final User? user = (await _auth.signInWithCredential(credential)).user;
       if (user != null) {
-        return "Signed in successfully";
+        Map<String, dynamic>? idMap = _parseJwt(credential.idToken!);
+
+        FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+          {
+            'email': user.email,
+            'firstName': idMap!["given_name"],
+            'lastName': idMap["family_name"],
+            'role': 'customer',
+          },
+          SetOptions(merge: true),
+        );
+        return 'Signed in successfully';
       }
       return "something went wrong";
     } catch (error) {

@@ -1,16 +1,17 @@
-import 'package:booking_template_app/screens/auth_screen.dart';
-import 'package:booking_template_app/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+import './auth_screen.dart';
+import '../services/auth_service.dart';
+
+class AccountScreen extends StatefulWidget {
+  const AccountScreen({Key? key}) : super(key: key);
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _AccountScreenState createState() => _AccountScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _AccountScreenState extends State<AccountScreen> {
   AuthService _authService = new AuthService();
   @override
   Widget build(BuildContext context) {

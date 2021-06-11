@@ -14,7 +14,7 @@ const Map<int, Color> color = {
 };
 
 class ThemeColors {
-  static const backgroundColor = Color(0xffFFFFFF);
+  static const backgroundColor = Color(0xfff2f2f2);
   static const textColor = Color(0xff000000);
 
   //* Recomendetion: Set primarySwatchColor and primaryColor to the same color.

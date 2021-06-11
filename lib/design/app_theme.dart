@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   ThemeData get themeData {
     return ThemeData(
+      scaffoldBackgroundColor: ThemeColors.backgroundColor,
       backgroundColor: ThemeColors.backgroundColor,
       primaryColor: ThemeColors.primaryColor,
       primarySwatch: ThemeColors.primarySwatchColor,
@@ -57,6 +58,15 @@ class AppTheme {
           indent: 12.0,
           thickness: 2.0),
       appBarTheme: AppBarTheme(color: ThemeColors.primaryColor),
+      cardTheme: CardTheme(
+        margin: const EdgeInsets.all(8.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(24.0),
+          ),
+          // side: BorderSide(style: BorderStyle.solid),
+        ),
+      ),
     );
   }
 }
