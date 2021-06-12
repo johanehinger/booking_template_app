@@ -28,6 +28,14 @@ class AuthService {
     return payloadMap;
   }
 
+  Future<String?> getUserRole(String uid) async {
+    DocumentSnapshot user =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    if (user.exists) {
+      return user['role'];
+    }
+  }
+
   Future<String> signInWithGoogle() async {
     GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
@@ -49,7 +57,7 @@ class AuthService {
             'email': user.email,
             'firstName': idMap!["given_name"],
             'lastName': idMap["family_name"],
-            'role': 'customer',
+            'role': 'user',
           },
           SetOptions(merge: true),
         );
@@ -82,7 +90,7 @@ class AuthService {
             'firstName': firstName,
             'lastName': lastName,
             'socialSecurityNumber': socialSecurityNumber,
-            'role': 'customer',
+            'role': 'user',
           },
           SetOptions(merge: true),
         );

@@ -145,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                   decoration: InputDecoration(
                                     labelText: "social security number",
-                                    prefixIcon: Icon(Icons.perm_identity),
+                                    prefixIcon: Icon(Icons.tag),
                                   ),
                                 ),
                               ),

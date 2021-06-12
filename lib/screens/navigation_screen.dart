@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './booking_screen.dart';
 import './home_screen.dart';
-import './account_screen.dart';
+import '../widgets/auth_wall.dart';
 import '../widgets/content_drawer.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     //! Modifying this list requires you to update index variables.
     HomeScreen(),
     BookingScreen(),
-    AccountScreen(),
+    AuthWall(),
   ];
 
   /// Switches tab.

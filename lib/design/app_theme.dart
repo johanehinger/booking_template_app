@@ -7,14 +7,13 @@ class AppTheme {
       scaffoldBackgroundColor: ThemeColors.backgroundColor,
       backgroundColor: ThemeColors.backgroundColor,
       primaryColor: ThemeColors.primaryColor,
-      primarySwatch: ThemeColors.primarySwatchColor,
+      accentColor: ThemeColors.secondaryColor,
       dialogTheme: DialogTheme(
         backgroundColor: ThemeColors.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
-      accentColor: ThemeColors.secondaryColor,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           onPrimary: ThemeColors.backgroundColor,
