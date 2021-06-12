@@ -20,14 +20,10 @@ class _AuthScreenState extends State<AuthScreen> {
   final AuthService _authService = AuthService();
 
   final _formKey = GlobalKey<FormState>();
-  Future<void> _login() async {
+  Future<void> _login(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      response = await _authService.signInWithEmailAndPassword(
-          email: email, password: password);
-      var _snackBar = SnackBar(
-        content: Text(response ?? 'Something went wrong'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+      _authService.signInWithEmailAndPassword(
+          context: context, email: email, password: password);
     }
   }
 
@@ -42,14 +38,6 @@ class _AuthScreenState extends State<AuthScreen> {
         builder: (context) => SignUpScreen(),
       ),
     );
-  }
-
-  Future<void> _loginWithGoogle() async {
-    response = await _authService.signInWithGoogle();
-    var _snackBar = SnackBar(
-      content: Text(response ?? 'Something went wrong'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
   }
 
   void _loginWithFacebook() {
@@ -139,7 +127,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 width: 200.0,
                                 height: 50.0,
                                 child: ElevatedButton(
-                                  onPressed: _login,
+                                  onPressed: () => _login(context),
                                   child: const Text('Login'),
                                 ),
                               ),
@@ -176,7 +164,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               SignInButton(
                                 Buttons.Google,
-                                onPressed: () => _loginWithGoogle(),
+                                onPressed: () => _authService.signInWithGoogle(
+                                  context: context,
+                                ),
                               ),
                               SignInButton(
                                 Buttons.Facebook,

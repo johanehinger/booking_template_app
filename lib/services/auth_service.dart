@@ -9,6 +9,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+
   static Map<String, dynamic>? _parseJwt(String? token) {
     // validate token
     if (token == null) return null;
@@ -36,7 +44,7 @@ class AuthService {
     }
   }
 
-  Future<String> signInWithGoogle() async {
+  Future<void> signInWithGoogle({required BuildContext context}) async {
     GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -55,23 +63,29 @@ class AuthService {
         FirebaseFirestore.instance.collection('users').doc(user.uid).set(
           {
             'email': user.email,
-            'firstName': idMap!["given_name"],
-            'lastName': idMap["family_name"],
+            'firstName': idMap!['given_name'],
+            'lastName': idMap['family_name'],
             'role': 'user',
           },
           SetOptions(merge: true),
         );
-        return 'Signed in successfully';
+        _showSnackBar(context, 'Signed in successfully');
+        return;
       }
-      return "something went wrong";
+      _showSnackBar(context, 'something went wrong');
+
+      return;
     } catch (error) {
-      return error.toString();
+      print(error.toString());
+      _showSnackBar(context, 'something went wrong');
+      return;
     }
   }
 
   /// registerWithEmailAndPassword
   ///   Will return either the newly created user as a "User" object or null
-  Future<String> registerWithEmailAndPassword({
+  Future<void> registerWithEmailAndPassword({
+    required BuildContext context,
     required String email,
     required String password,
     required String firstName,
@@ -94,54 +108,62 @@ class AuthService {
           },
           SetOptions(merge: true),
         );
-        return 'User created successfully';
+        _showSnackBar(context, 'User created successfully');
+        return;
       }
 
-      return "Something went wrong";
+      _showSnackBar(context, 'something went wrong');
+      return;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        return 'The password provided is too weak';
+        _showSnackBar(context, 'The password provided is too weak');
+        return;
       } else if (e.code == 'email-already-in-use') {
-        return 'The account with that email already exists';
+        _showSnackBar(context, 'The account with that email already exists');
+        return;
       }
-      return "Something went wrong";
+      _showSnackBar(context, 'something went wrong');
+      return;
     } catch (error) {
       print(error.toString());
-      return error.toString();
+      _showSnackBar(context, 'something went wrong');
+      return;
     }
   }
 
-  Future<String> signOut(context) async {
+  Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    SnackBar snackBar = SnackBar(content: Text("hej"));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-    return "Signed out";
+    _showSnackBar(context, "Signed out successfully");
   }
 
-  Future<String> signInWithEmailAndPassword(
-      {String? email, String? password}) async {
+  Future<void> signInWithEmailAndPassword(
+      {required BuildContext context, String? email, String? password}) async {
     try {
       if (email != null && password != null) {
         UserCredential userCredential = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
         User? user = userCredential.user;
         if (user != null) {
-          return "Signed in successfully";
+          _showSnackBar(context, 'Signed in successfully');
+          return;
         }
       }
-      return "Something went wrong";
+      _showSnackBar(context, 'Something went wrong');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        return 'No user found with that email';
+        _showSnackBar(context, 'No user found with that email');
+        return;
       } else if (e.code == 'wrong-password') {
-        return 'Wrong password';
+        _showSnackBar(context, 'Wrong password');
+        return;
       }
-      return 'Something went wrong';
+      _showSnackBar(context, 'Something went wrong');
+      return;
     } catch (error) {
       print(error.toString());
       // return 'Something went wrong';
-      return error.toString();
+      _showSnackBar(context, 'Something went wrong');
+      return;
     }
   }
 }

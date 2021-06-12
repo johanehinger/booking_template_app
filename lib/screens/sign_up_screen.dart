@@ -25,33 +25,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> _signUpWithEmailAndPassword() async {
+  Future<void> _signUpwithGoogle({required BuildContext context}) async {
+    await _authService.signInWithGoogle(context: context);
+
+    if (FirebaseAuth.instance.currentUser != null) {
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> _signUpWithEmailAndPassword(
+      {required BuildContext context}) async {
     if (_formKey.currentState!.validate()) {
-      response = await _authService.registerWithEmailAndPassword(
+      await _authService.registerWithEmailAndPassword(
+        context: context,
         email: email!,
         password: password!,
         firstName: firstName!,
         lastName: lastName!,
         socialSecurityNumber: socialSecurityNumber!,
       );
-      var _snackBar = SnackBar(
-        content: Text(response ?? 'Something went wrong'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(_snackBar);
       if (FirebaseAuth.instance.currentUser != null) {
         Navigator.pop(context);
       }
-    }
-  }
-
-  Future<void> _signUpwithGoogle() async {
-    response = await _authService.signInWithGoogle();
-    var _snackBar = SnackBar(
-      content: Text(response ?? 'Something went wrong'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
-    if (FirebaseAuth.instance.currentUser != null) {
-      Navigator.pop(context);
     }
   }
 
@@ -238,8 +233,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 width: 200.0,
                                 height: 50.0,
                                 child: ElevatedButton(
-                                  onPressed: () =>
-                                      _signUpWithEmailAndPassword(),
+                                  onPressed: () => _signUpWithEmailAndPassword(
+                                    context: context,
+                                  ),
                                   child: const Text('Sign up'),
                                 ),
                               ),
@@ -268,7 +264,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             SignInButton(
                               Buttons.Google,
-                              onPressed: () => _signUpwithGoogle(),
+                              onPressed: () =>
+                                  _signUpwithGoogle(context: context),
                               text: "Sign up with Google",
                             ),
                             SignInButton(
