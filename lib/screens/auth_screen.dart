@@ -82,6 +82,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                         right: 12.0,
                                       ),
                                       child: TextFormField(
+                                        keyboardType:
+                                            TextInputType.emailAddress,
                                         validator: (val) => val!.isEmpty
                                             ? "Enter a email"
                                             : null,
@@ -100,6 +102,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                         right: 12.0,
                                       ),
                                       child: TextFormField(
+                                        keyboardType: TextInputType.text,
                                         validator: (val) {
                                           if (val == null || val.length < 6) {
                                             return "Password must be a least 6 characters long";

@@ -17,15 +17,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
-  static final List<Widget> _tabs = <Widget>[
-    //! Modifying this list requires you to update index variables.
-    HomeScreen(),
-    BookingScreen(),
-    AuthWall(),
-  ];
-
   /// Switches tab.
-  void _onItemTapped(int index) async {
+  void _onItemTapped(int index) {
     Navigator.of(context).pop();
     setState(() {
       _selectedIndex = index;
@@ -41,11 +34,28 @@ class _NavigationScreenState extends State<NavigationScreen> {
     }
   }
 
+  void hej() {
+    print("hej");
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _tabs = <Widget>[
+      //! Modifying this list requires you to update index variables.
+      HomeScreen(
+        setIndex: () => setState(
+          () {
+            _selectedIndex = 1;
+          },
+        ),
+      ),
+      BookingScreen(),
+      AuthWall(),
+    ];
     return Scaffold(
       primary: true,
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         title: Text("Company logo here"),
         leading: IconButton(
@@ -58,6 +68,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         key: _key,
         drawer: ContentDrawer(
           onItemTapped: _onItemTapped,
+          selectedIndex: _selectedIndex,
         ),
         body: _tabs.elementAt(_selectedIndex),
       ),

@@ -86,6 +86,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   right: 12.0,
                                 ),
                                 child: TextFormField(
+                                  keyboardType: TextInputType.text,
                                   validator: (val) => val!.isEmpty
                                       ? "Enter a first name"
                                       : null,
@@ -108,6 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   right: 12.0,
                                 ),
                                 child: TextFormField(
+                                  keyboardType: TextInputType.text,
                                   validator: (val) =>
                                       val!.isEmpty ? "Enter a last name" : null,
                                   obscureText: false,
@@ -129,6 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   right: 12.0,
                                 ),
                                 child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   validator: (val) => val!.isEmpty
                                       ? "Enter a social security number"
                                       : null,
@@ -151,6 +154,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   right: 12.0,
                                 ),
                                 child: TextFormField(
+                                  keyboardType: TextInputType.emailAddress,
                                   validator: (val) =>
                                       val!.isEmpty ? "Enter a email" : null,
                                   obscureText: false,
@@ -173,6 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   right: 12.0,
                                 ),
                                 child: TextFormField(
+                                  keyboardType: TextInputType.text,
                                   validator: (val) {
                                     if (val == null || val.length < 6) {
                                       return "Password must be a least 6 characters long";
@@ -203,6 +208,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   right: 12.0,
                                 ),
                                 child: TextFormField(
+                                  keyboardType: TextInputType.text,
                                   validator: (val) {
                                     if (val == null || val != password) {
                                       return "Passwords must be the same";
